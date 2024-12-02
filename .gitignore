@@ -44,3 +44,8 @@ app.*.map.json
 
 # secret variable files
 .env
+
+# firebase credential files
+/android/app/google-services.json
+/ios/runner/GoogleServive-info.plist
+/lib/firebase_options.dart
