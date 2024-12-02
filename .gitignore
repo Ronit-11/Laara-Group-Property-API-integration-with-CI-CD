@@ -46,7 +46,6 @@ app.*.map.json
 .env\
 .env.example
 
-
 # firebase credential files
 /android/app/google-services.json
 /ios/runner/GoogleServive-info.plist
