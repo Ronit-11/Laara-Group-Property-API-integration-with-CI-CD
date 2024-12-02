@@ -19,7 +19,7 @@ jobs:
       
       - uses: actions/setup-java@v4.5.0
         with:
-          distribution: Zulu
+          distribution: oracle
           java-version: "23"
       
       # # secrets. variables are stored as secrets and variables of actions in github
