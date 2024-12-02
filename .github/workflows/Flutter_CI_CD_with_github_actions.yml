@@ -15,10 +15,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       
-      - uses: actions/setup-java@v2
+      - uses: actions/setup-java@v4.5.0
         with:
+          distribution: Zulu
           java-version: "23"
       
       # # secrets. variables are stored as secrets and variables of actions in github
