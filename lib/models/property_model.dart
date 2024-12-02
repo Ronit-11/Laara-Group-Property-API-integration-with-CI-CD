@@ -10,12 +10,13 @@ class Property {
   List<AccessibilityFeature> accessibilityFeatures;
   Host host;
   List<MealOption> mealOptions;
-  List<ImageData> propertyImages;
-  List<ImageData> staffImages;
-  List<ImageData> foodImages;
+  List<dynamic> propertyImages;
+  List<dynamic> staffImages;
+  List<dynamic> foodImages;
   String type;
   List<Room> rooms;
   List<PropertyPolicy> propertyPolicies;
+  List<Amenity> propertyAmenities;
 
   Property({
     required this.id,
@@ -35,6 +36,7 @@ class Property {
     required this.type,
     required this.rooms,
     required this.propertyPolicies,
+    required this.propertyAmenities,
   });
 
   factory Property.fromJson(Map<String, dynamic> json) {
@@ -58,13 +60,13 @@ class Property {
           .map((meal) => MealOption.fromJson(meal))
           .toList(),
       propertyImages: (json['propertyImages'] as List)
-          .map((image) => ImageData.fromJson(image['images']))
+          .map((image) => image['images']['url'])
           .toList(),
       staffImages: (json['staffImages'] as List)
-          .map((image) => ImageData.fromJson(image['images']))
+          .map((image) => image['images']['url'])
           .toList(),
       foodImages: (json['foodImages'] as List)
-          .map((image) => ImageData.fromJson(image['images']))
+          .map((image) => image['images']['url'])
           .toList(),
       type: json['type'] ?? '',
       rooms: (json['rooms'] as List? ?? [])
@@ -72,6 +74,9 @@ class Property {
           .toList(),
       propertyPolicies: (json['propertyPolicies'] as List? ?? [])
           .map((policy) => PropertyPolicy.fromJson(policy['policies']))
+          .toList(),
+      propertyAmenities: (json['propertyAmenities'] as List? ?? [])
+          .map((amenity) => Amenity.fromJson(amenity['amenities']))
           .toList(),
     );
   }
@@ -218,7 +223,7 @@ class Room {
   String description;
   String name;
   List<Pricing> pricings;
-  List<ImageData> roomTypeImages;
+  List<dynamic> roomTypeImages;
 
   Room({
     required this.description,
@@ -235,7 +240,7 @@ class Room {
           .map((roomtypePlan) => Pricing.fromJson(roomtypePlan))
           .toList(),
       roomTypeImages: (json['roomTypeImages'] as List)
-          .map((image) => ImageData.fromJson(image['images']))
+          .map((image) => image['images']['url'])
           .toList(),
     );
   }
@@ -297,14 +302,37 @@ class PropertyPolicy {
   }
 }
 
-class ImageData {
-  final String url;
+class Amenity {
+  final String name;
+  final String category;
+  final String description;
+  final String icon;
 
-  ImageData({
-    required this.url
+  Amenity({
+    required this.name,
+    required this.category,
+    required this.description,
+    required this.icon
   });
 
-  factory ImageData.fromJson(Map<String, dynamic> json) {
-    return ImageData(url: json['url'] ?? '');
+  factory Amenity.fromJson(Map<String, dynamic> json) {
+    return Amenity(
+      name: json['name'] ?? '',
+      category: json['category'] ?? '',
+      description: json['description'] ?? '',
+      icon: json['icon'] ?? '',
+    );
   }
 }
+
+// class ImageData {
+//   final String url;
+
+//   ImageData({
+//     required this.url
+//   });
+
+//   factory ImageData.fromJson(Map<String, dynamic> json) {
+//     return ImageData(url: json['url'] ?? '');
+//   }
+// }
