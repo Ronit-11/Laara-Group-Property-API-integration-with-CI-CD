@@ -44,6 +44,7 @@ app.*.map.json
 
 # secret variable files
 .env
+.env.example
 
 # firebase credential files
 /android/app/google-services.json
