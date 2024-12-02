@@ -11,7 +11,7 @@ on:
 
 jobs:
   build_apk:
-  name: Github repository code fetch, flutter setup and apk build
+    name: Github repository code fetch, flutter setup and apk build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -38,6 +38,7 @@ jobs:
         env:
           firebase_options_dart: ${{secrets.ENV_FILE}}
         run : echo "$env" > .env
+        
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
