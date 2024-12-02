@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart'; 
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -40,47 +41,47 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDge99EOnB2FtTEucsM-1fPn90tLdD54-s',
-    appId: '1:167124465577:web:88ac3318edc289f194b6b8',
-    messagingSenderId: '167124465577',
-    projectId: 'endpoint-integ-gitactions',
-    authDomain: 'endpoint-integ-gitactions.firebaseapp.com',
-    storageBucket: 'endpoint-integ-gitactions.firebasestorage.app',
+  static FirebaseOptions web = FirebaseOptions(
+    apiKey: dotenv.env['WEB_API_KEY']!,
+    appId: dotenv.env['WEB_APP_ID']!,
+    messagingSenderId: dotenv.env['COMMON_MESSAGING_SENDER_ID']!,
+    projectId: dotenv.env['COMMON_PROJECT_ID']!,
+    authDomain: dotenv.env['COMMON_AUTH_DOMAIN']!,
+    storageBucket: dotenv.env['COMMON_STORAGE_BUCKET']!,
   );
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAyqZvSy3QDKYTniHXOKEMer4hpe-9O3dY',
-    appId: '1:167124465577:android:acd11ad1a4e8b01d94b6b8',
-    messagingSenderId: '167124465577',
-    projectId: 'endpoint-integ-gitactions',
-    storageBucket: 'endpoint-integ-gitactions.firebasestorage.app',
+  static FirebaseOptions android = FirebaseOptions(
+    apiKey: dotenv.env['ANDROID_API_KEY']!,
+    appId: dotenv.env['ANDROID_APP_ID']!,
+    messagingSenderId: dotenv.env['COMMON_MESSAGING_SENDER_ID']!,
+    projectId: dotenv.env['COMMON_PROJECT_ID']!,
+    storageBucket: dotenv.env['COMMON_STORAGE_BUCKET']!,
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB1odUBlv-SJlnOPW-NCGo96rl0sE-P5Cc',
-    appId: '1:167124465577:ios:171e77ca3eea5f2b94b6b8',
-    messagingSenderId: '167124465577',
-    projectId: 'endpoint-integ-gitactions',
-    storageBucket: 'endpoint-integ-gitactions.firebasestorage.app',
-    iosBundleId: 'com.example.endpointIntegrationWithGithubActions',
+  static FirebaseOptions ios = FirebaseOptions(
+    apiKey: dotenv.env['IOS_API_KEY']!,
+    appId: dotenv.env['IOS_APP_ID']!,
+    messagingSenderId: dotenv.env['COMMON_MESSAGING_SENDER_ID']!,
+    projectId: dotenv.env['COMMON_PROJECT_ID']!,
+    storageBucket: dotenv.env['COMMON_STORAGE_BUCKET']!,
+    iosBundleId: dotenv.env['IOS_MACOS_BUNDLE_ID'],
   );
 
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyB1odUBlv-SJlnOPW-NCGo96rl0sE-P5Cc',
-    appId: '1:167124465577:ios:171e77ca3eea5f2b94b6b8',
-    messagingSenderId: '167124465577',
-    projectId: 'endpoint-integ-gitactions',
-    storageBucket: 'endpoint-integ-gitactions.firebasestorage.app',
-    iosBundleId: 'com.example.endpointIntegrationWithGithubActions',
+  static FirebaseOptions macos = FirebaseOptions(
+    apiKey: dotenv.env['MACOS_API_KEY']!,
+    appId: dotenv.env['MACOS_APP_ID']!,
+    messagingSenderId: dotenv.env['COMMON_MESSAGING_SENDER_ID']!,
+    projectId: dotenv.env['COMMON_PROJECT_ID']!,
+    storageBucket: dotenv.env['COMMON_STORAGE_BUCKET']!,
+    iosBundleId: dotenv.env['IOS_MACOS_BUNDLE_ID'],
   );
 
-  static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyDge99EOnB2FtTEucsM-1fPn90tLdD54-s',
-    appId: '1:167124465577:web:378f07d18aa3312e94b6b8',
-    messagingSenderId: '167124465577',
-    projectId: 'endpoint-integ-gitactions',
-    authDomain: 'endpoint-integ-gitactions.firebaseapp.com',
-    storageBucket: 'endpoint-integ-gitactions.firebasestorage.app',
+  static FirebaseOptions windows = FirebaseOptions(
+    apiKey: dotenv.env['WINDOWS_API_KEY']!,
+    appId: dotenv.env['WINDOWS_APP_ID']!,
+    messagingSenderId: dotenv.env['COMMON_MESSAGING_SENDER_ID']!,
+    projectId: dotenv.env['COMMON_PROJECT_ID']!,
+    authDomain: dotenv.env['COMMON_AUTH_DOMAIN']!,
+    storageBucket: dotenv.env['COMMON_STORAGE_BUCKET']!,
   );
 }
