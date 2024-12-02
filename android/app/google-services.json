@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "167124465577",
+    "project_id": "endpoint-integ-gitactions",
+    "storage_bucket": "endpoint-integ-gitactions.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:167124465577:android:acd11ad1a4e8b01d94b6b8",
+        "android_client_info": {
+          "package_name": "com.endpoints.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyqZvSy3QDKYTniHXOKEMer4hpe-9O3dY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
