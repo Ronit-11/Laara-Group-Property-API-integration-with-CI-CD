@@ -1,0 +1,97 @@
+name: Flutter CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'stable'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      # - name: Run tests
+      #   run: flutter test
+
+      - name: Clean build
+        run: flutter clean
+
+      - name: Build APK
+        run: flutter build apk --release
+
+      # secrets. variables are stored as secrets and variables of actions in github
+      - name: Upload APK to Firebase
+        run: |
+          firebase appdistribution:distribute build/app/outputs/flutter-apk/app-release.apk \
+          --app ${{secrets.FIREBASE_APK_ID}} \
+          --groups "testers" \
+          --project ${{secrets.FIREBASE_PROJECT_ID}}
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_AUTH_TOKEN }}
+
+
+
+
+
+
+
+# name: Flutter CI/CD
+
+# on:
+#   push:
+#     branches:
+#       - main
+#   pull_request:
+#     branches:
+#       - main
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+
+#       - name: Set up Flutter
+#         uses: subosito/flutter-action@v2
+#         with:
+#           flutter-version: 'stable'
+
+#       - name: Install dependencies
+#         run: flutter pub get
+
+#       - name: Extract Firebase App ID for Android
+#         id: extract_firebase_id
+#         run: |
+#           APP_ID=$(grep -oP "appId: '\K.*?(?=')" lib/firebase_options.dart)
+#           echo "Firebase App ID: $APP_ID"
+#           echo "FIREBASE_APP_ID=$APP_ID" >> $GITHUB_ENV
+
+#       - name: Run tests
+#         run: flutter test
+
+#       - name: Build APK
+#         run: flutter build apk --release
+
+#       - name: Upload APK to Firebase
+#         run: |
+#           firebase appdistribution:distribute build/app/outputs/flutter-apk/app-release.apk \
+#           --app ${{ env.FIREBASE_APP_ID }} \
+#           --groups "testers"
+#         env:
+#           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
