@@ -10,8 +10,8 @@ on:
       - main
 
 jobs:
-  copy_credential_files:
-    name: Copy credential files
+  build_apk:
+    name: Github repository code fetch, flutter setup and apk build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -21,7 +21,7 @@ jobs:
       # the contents of the secret variable are saved in a specific file
       - name: Decode google-services.json
         env: 
-            GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
         run: echo "$GOOGLE_SERVICES_JSON" > android/app/google-services.json
 
       - name: Decode firebase_option
@@ -33,30 +33,6 @@ jobs:
         env:
           ENV_FILE: ${{secrets.ENV_FILE}}
         run: echo "$ENV_FILE" > .env
-
-      # Upload all credential files as artifacts
-      - name: Upload credential files
-        uses: actions/upload-artifact@v4
-        with:
-          name: credential-files
-          path: |
-            android/app/google-services.json
-            lib/firebase_options.dart
-            .env
-
-  build_apk:
-    name: Github repository code fetch, flutter setup and apk build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      # Download all credential files from the copy_credential_files job
-      - name: Download credential files
-        uses: actions/download-artifact@v4
-        with:
-          name: credential-files
-          path: . 
       
       - uses: actions/setup-java@v4.5.0
         with:
@@ -89,3 +65,97 @@ jobs:
             serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_CREDENTIAL }}
             groups: tester_group
             file: build/app/outputs/apk/release/app-release.apk
+
+
+# # different jobs, not working specifically for .env file
+# name: Flutter CI/CD with github actions
+
+# # github trigger
+# on:
+#   push:
+#     branches:
+#       - main
+#   pull_request:
+#     branches:
+#       - main
+
+# jobs:
+#   copy_credential_files:
+#     name: Copy credential files
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+
+#       # secrets. variables are stored as secrets and variables of actions in github
+#       # the contents of the secret variable are saved in a specific file
+#       - name: Decode google-services.json
+#         env: 
+#             GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+#         run: echo "$GOOGLE_SERVICES_JSON" > android/app/google-services.json
+
+#       - name: Decode firebase_option
+#         env:
+#           FIREBASE_OPTION: ${{secrets.FIREBASE_OPTION}}
+#         run: echo "$FIREBASE_OPTION" > lib/firebase_options.dart
+
+#       - name: Decode .env file
+#         env:
+#           ENV_FILE: ${{secrets.ENV_FILE}}
+#         run: echo "$ENV_FILE" > .env
+
+#       # Upload all credential files as artifacts
+#       - name: Upload credential files
+#         uses: actions/upload-artifact@v4
+#         with:
+#           name: credential-files
+#           path: |
+#             android/app/google-services.json
+#             lib/firebase_options.dart
+#             .env
+
+#   build_apk:
+#     name: Github repository code fetch, flutter setup and apk build
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+
+#       # Download all credential files from the copy_credential_files job
+#       - name: Download credential files
+#         uses: actions/download-artifact@v4
+#         with:
+#           name: credential-files
+#           path: . 
+      
+#       - uses: actions/setup-java@v4.5.0
+#         with:
+#           distribution: zulu
+#           java-version: "17"
+        
+#       - name: Set up Flutter
+#         uses: subosito/flutter-action@v2
+#         with:
+#           channel: 'stable'
+
+#       - name: Install dependencies
+#         run: flutter pub get
+
+#       # - name: Run tests
+#       #   run: flutter test
+
+#       - name: Build APK
+#         run: flutter build apk --release
+
+#       - uses: actions/upload-artifact@v4
+#         with:
+#           name: Release APK
+#           path: build/app/outputs/apk/release/app-release.apk
+
+#       - name: Upload APK to Firebase App Distribution
+#         uses: wzieba/Firebase-Distribution-Github-Action@v1
+#         with:
+#             appId: ${{secrets.FIREBASE_APK_ID}}
+#             serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_CREDENTIAL }}
+#             groups: tester_group
+#             file: build/app/outputs/apk/release/app-release.apk
