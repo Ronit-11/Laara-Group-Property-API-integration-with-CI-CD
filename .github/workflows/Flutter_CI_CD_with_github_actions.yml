@@ -11,16 +11,16 @@ on:
 
 jobs:
   build_apk:
-  name: Github repository code fetch, flutter setup and apk build
+    name: Github repository code fetch, flutter setup and apk build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       
-      - uses: actions/setup-java@v2
+      - uses: actions/setup-java@v4.5.0
         with:
-          distribution: "zulu"
-          java-version: "11"
+          distribution: zulu
+          java-version: "17"
       
       # # secrets. variables are stored as secrets and variables of actions in github
       # # the contents of the secret variable are saved in a specific file
@@ -38,6 +38,7 @@ jobs:
         env:
           firebase_options_dart: ${{secrets.ENV_FILE}}
         run : echo "$env" > .env
+        
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -52,7 +53,7 @@ jobs:
       - name: Build APK
         run: flutter build apk --release
 
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v4
         with:
           name: Release APK
           path: build/app/outputs/apk/release/app-release.apk
