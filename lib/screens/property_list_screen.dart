@@ -28,12 +28,12 @@ class _PropertyListScreenState extends State<PropertyListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Properties List'),
-        backgroundColor: const Color.fromARGB(255, 255, 203, 135),
+        backgroundColor: Color.fromARGB(255, 255, 203, 135),
       ),
       body: propertyProvider.isLoading
           ? const Center(child: CircularProgressIndicator())
           : Container(
-              color: const Color.fromARGB(224, 252, 255, 232),
+              color: Color.fromARGB(224, 252, 255, 232),
               child: ListView.builder(
                 itemCount: propertyProvider.properties.length,
                 itemBuilder: (ctx, index) {
@@ -68,7 +68,7 @@ class _PropertyListScreenState extends State<PropertyListScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           ClipRRect(
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(15),
                               topRight: Radius.circular(15),
                             ),

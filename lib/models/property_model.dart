@@ -265,7 +265,7 @@ class Pricing {
 
   factory Pricing.fromJson(Map<String, dynamic> json) {
     return Pricing(
-      id: json['id'],
+      id: json['id'] ?? -1,
       pice: json['pice'] ?? -1,
       pricingOption: json['pricingOption'] ?? '',
       pricingMode: json['pricingMode'] ?? '',
