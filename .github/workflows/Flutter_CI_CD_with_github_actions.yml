@@ -10,18 +10,13 @@ on:
       - main
 
 jobs:
-  build_apk:
-    name: Github repository code fetch, flutter setup and apk build
+  copy_credential_files:
+    name: Copy credential files
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
-      - uses: actions/setup-java@v4.5.0
-        with:
-          distribution: zulu
-          java-version: "17"
-      
+
       # # secrets. variables are stored as secrets and variables of actions in github
       # # the contents of the secret variable are saved in a specific file
       - name: Decode google-services.json
@@ -36,8 +31,20 @@ jobs:
 
       - name: Decode .env file
         env:
-          firebase_options_dart: ${{secrets.ENV_FILE}}
-        run : echo "$env" > .env
+          env_file: ${{secrets.ENV_FILE}}
+        run : echo "$env_file" > .env
+
+  build_apk:
+    name: Github repository code fetch, flutter setup and apk build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - uses: actions/setup-java@v4.5.0
+        with:
+          distribution: zulu
+          java-version: "17"
         
       - name: Set up Flutter
         uses: subosito/flutter-action@v2

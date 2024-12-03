@@ -15,12 +15,12 @@ class PropertyDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(property.name),
-        backgroundColor: Color.fromARGB(255, 255, 203, 135),
+        backgroundColor: const Color.fromARGB(255, 255, 203, 135),
       ),
       body: propertyProvider.isLoading
           ? const Center(child: CircularProgressIndicator())
           : Container(
-            color: Color.fromARGB(224, 252, 255, 232),
+            color: const Color.fromARGB(224, 252, 255, 232),
             child: ListView(
               padding: const EdgeInsets.all(16),
               children: [
@@ -43,25 +43,25 @@ class PropertyDetailScreen extends StatelessWidget {
                 const SizedBox(height: 6),
                 Text(
                   '${property.address.street}, ${property.address.town}, ${property.address.country}',
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                  style: const TextStyle(fontSize: 14, color: Colors.grey),
                 ),
 
                 // Property Description
                 Text(
                   property.description,
-                  style: TextStyle(fontSize: 16),
+                  style: const TextStyle(fontSize: 16),
                 ),
                 const SizedBox(height: 2),
 
                 // Property Amenities
                 ExpansionTile(
-                  title: Text('Amenities', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  title: const Text('Amenities', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   children: property.propertyAmenities
                     .where((amenity) => amenity.name.isNotEmpty)
                     .map((amenity) {
                     return ListTile(
-                      contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                      title: Text('${amenity.name}'),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                      title: Text(amenity.name),
                     );
                   }).toList(),
                 ),
@@ -101,8 +101,8 @@ class PropertyDetailScreen extends StatelessWidget {
                 ),
                 for (var language in property.propertyLanguages)
                   Text(
-                    '- ${language}',
-                    style: TextStyle(fontSize: 16),
+                    '- $language',
+                    style: const TextStyle(fontSize: 16),
                   ),
                 const SizedBox(height: 16),
 
