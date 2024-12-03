@@ -13,6 +13,11 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());
+  debugPrint = (String? message, {int? wrapWidth}) {
+    if (message != null) {
+      print('DEBUG: $message');
+    }
+  };
 }
 
 class MyApp extends StatelessWidget {
