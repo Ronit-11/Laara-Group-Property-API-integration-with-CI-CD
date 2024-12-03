@@ -4,7 +4,7 @@ import 'package:flutter_endpoint_integration_with_github_actions/providers/prope
 import 'package:flutter_endpoint_integration_with_github_actions/screens/property_list_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_endpoint_integration_with_github_actions/firebase_options.dart';
+import 'firebase_options.dart';
 
 void main() async {
   await dotenv.load(fileName: '.env'); // load the .env file with variables

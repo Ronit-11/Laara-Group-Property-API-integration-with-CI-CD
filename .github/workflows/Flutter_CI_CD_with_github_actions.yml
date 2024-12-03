@@ -34,12 +34,29 @@ jobs:
           ENV_FILE: ${{secrets.ENV_FILE}}
         run: echo "$ENV_FILE" > .env
 
+      # Upload all credential files as artifacts
+      - name: Upload credential files
+        uses: actions/upload-artifact@v4
+        with:
+          name: credential-files
+          path: |
+            android/app/google-services.json
+            lib/firebase_options.dart
+            .env
+
   build_apk:
     name: Github repository code fetch, flutter setup and apk build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      # Download all credential files from the copy_credential_files job
+      - name: Download credential files
+        uses: actions/download-artifact@v4
+        with:
+          name: credential-files
+          path: . 
       
       - uses: actions/setup-java@v4.5.0
         with:
@@ -49,6 +66,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.0.0'
           channel: 'stable'
 
       - name: Install dependencies
