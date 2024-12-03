@@ -17,8 +17,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # # secrets. variables are stored as secrets and variables of actions in github
-      # # the contents of the secret variable are saved in a specific file
+      # secrets. variables are stored as secrets and variables of actions in github
+      # the contents of the secret variable are saved in a specific file
       - name: Decode google-services.json
         env: 
             GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
@@ -26,13 +26,13 @@ jobs:
 
       - name: Decode firebase_option
         env:
-          firebase_options_dart: ${{secrets.FIREBASE_OPTION}}
-        run : echo "$firebase_options_dart" > lib/firebase_options.dart
+          FIREBASE_OPTION: ${{secrets.FIREBASE_OPTION}}
+        run: echo "$FIREBASE_OPTION" > lib/firebase_options.dart
 
       - name: Decode .env file
         env:
-          env_file: ${{secrets.ENV_FILE}}
-        run : echo "$env_file" > .env
+          ENV_FILE: ${{secrets.ENV_FILE}}
+        run: echo "$ENV_FILE" > .env
 
   build_apk:
     name: Github repository code fetch, flutter setup and apk build
